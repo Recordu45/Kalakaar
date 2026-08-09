@@ -1,38 +1,668 @@
-<div class="modal" id="modal">
+<!DOCTYPE html>
+<html lang="en">
 
-  <div class="modal-card">
+<head>
+  <meta charset="UTF-8">
 
-    <button
-      type="button"
-      class="close"
-      id="closeModal">
-      ×
-    </button>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-    <span class="badge">
-      KALAKAAR
-    </span>
+  <meta
+    name="theme-color"
+    content="#120817"
+  >
 
-    <h2 id="modalTitle">
-      Welcome
-    </h2>
+  <meta
+    name="description"
+    content="Kalakaar - All-in-One AI Hub"
+  >
 
-    <p id="modalText">
-      Module selected.
-    </p>
+  <title>
+    Kalakaar | All-in-One AI App
+  </title>
 
-    <div class="coming">
-      Kalakaar module ready hai.
-      Is module ke features yahin se use kar sakte ho.
-    </div>
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+</head>
 
-    <button
-      type="button"
-      class="primary"
-      id="modalAction">
-      Continue
-    </button>
+
+<body>
+
+  <div class="app-shell">
+
+
+    <!-- =========================
+         TOP BAR
+    ========================== -->
+
+    <header class="topbar">
+
+      <div class="brand">
+
+        <img
+          src="assets/Kalakaar.jpg"
+          alt="Kalakaar"
+          class="brand-logo"
+        >
+
+        <div>
+
+          <h1>KALAKAAR</h1>
+
+          <p>
+            All-in-One AI Hub
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="icon-btn"
+        id="themeBtn"
+        aria-label="Toggle theme"
+      >
+        ◐
+      </button>
+
+    </header>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main>
+
+
+      <!-- =========================
+           HERO
+      ========================== -->
+
+      <section class="hero">
+
+        <div class="hero-glow"></div>
+
+        <div class="hero-content">
+
+          <span class="badge">
+            KALAKAAR V2
+          </span>
+
+
+          <h2>
+            Sab kuch,
+            <span>ek app</span>
+            mein.
+          </h2>
+
+
+          <p>
+            Business, Banking, Jobs, Study,
+            Services aur WhatsApp tools
+            ek hi jagah.
+          </p>
+
+
+          <div class="search-box">
+
+            <span>
+              ⌕
+            </span>
+
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search a feature..."
+              autocomplete="off"
+            >
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =========================
+           QUICK TOOLS
+      ========================== -->
+
+      <section class="quick">
+
+        <div class="section-title">
+
+          <h3>
+            Quick Tools
+          </h3>
+
+          <span>
+            V2
+          </span>
+
+        </div>
+
+
+        <div class="quick-grid">
+
+
+          <button
+            type="button"
+            class="quick-card"
+            data-open="emi"
+          >
+
+            <strong>
+              ₹
+            </strong>
+
+            <span>
+              EMI Calculator
+            </span>
+
+          </button>
+
+
+
+          <button
+            type="button"
+            class="quick-card"
+            data-open="ledger"
+          >
+
+            <strong>
+              ▤
+            </strong>
+
+            <span>
+              Customer Ledger
+            </span>
+
+          </button>
+
+
+
+          <button
+            type="button"
+            class="quick-card"
+            data-open="resume"
+          >
+
+            <strong>
+              CV
+            </strong>
+
+            <span>
+              Resume Builder
+            </span>
+
+          </button>
+
+
+
+          <button
+            type="button"
+            class="quick-card"
+            data-open="notes"
+          >
+
+            <strong>
+              ✦
+            </strong>
+
+            <span>
+              AI Notes
+            </span>
+
+          </button>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =========================
+           KALAKAAR MODULES
+      ========================== -->
+
+      <section class="modules">
+
+
+        <div class="section-title">
+
+          <h3>
+            Kalakaar Modules
+          </h3>
+
+          <span id="moduleCount">
+            6 Modules
+          </span>
+
+        </div>
+
+
+
+        <div
+          class="module-grid"
+          id="moduleGrid"
+        >
+
+
+          <!-- BUSINESS -->
+
+          <button
+            type="button"
+            class="module-card"
+            data-name="business ai billing stock customer ledger payment whatsapp reports"
+            data-open="business"
+          >
+
+            <div class="module-icon">
+              ▣
+            </div>
+
+            <div>
+
+              <h4>
+                Business AI
+              </h4>
+
+              <p>
+                Billing, stock, ledger & reports
+              </p>
+
+            </div>
+
+            <b>
+              ›
+            </b>
+
+          </button>
+
+
+
+          <!-- BANKING -->
+
+          <button
+            type="button"
+            class="module-card"
+            data-name="banking finance emi collection dpd npa branch excel"
+            data-open="banking"
+          >
+
+            <div class="module-icon">
+              ₹
+            </div>
+
+            <div>
+
+              <h4>
+                Banking & Finance
+              </h4>
+
+              <p>
+                EMI, collection, DPD/NPA & tools
+              </p>
+
+            </div>
+
+            <b>
+              ›
+            </b>
+
+          </button>
+
+
+
+          <!-- JOBS -->
+
+          <button
+            type="button"
+            class="module-card"
+            data-name="resume jobs cv interview application career ai"
+            data-open="jobs"
+          >
+
+            <div class="module-icon">
+              CV
+            </div>
+
+            <div>
+
+              <h4>
+                AI Resume & Jobs
+              </h4>
+
+              <p>
+                Resume, interview & job tracker
+              </p>
+
+            </div>
+
+            <b>
+              ›
+            </b>
+
+          </button>
+
+
+
+          <!-- SERVICES -->
+
+          <button
+            type="button"
+            class="module-card"
+            data-name="local service electrician plumber mechanic ac repair booking"
+            data-open="services"
+          >
+
+            <div class="module-icon">
+              ⌂
+            </div>
+
+            <div>
+
+              <h4>
+                Local Services
+              </h4>
+
+              <p>
+                Book trusted local professionals
+              </p>
+
+            </div>
+
+            <b>
+              ›
+            </b>
+
+          </button>
+
+
+
+          <!-- STUDY -->
+
+          <button
+            type="button"
+            class="module-card"
+            data-name="study ncert notes quiz exam tutor hindi"
+            data-open="study"
+          >
+
+            <div class="module-icon">
+              ✦
+            </div>
+
+            <div>
+
+              <h4>
+                AI Study
+              </h4>
+
+              <p>
+                Notes, quiz, NCERT & AI tutor
+              </p>
+
+            </div>
+
+            <b>
+              ›
+            </b>
+
+          </button>
+
+
+
+          <!-- WHATSAPP CRM -->
+
+          <button
+            type="button"
+            class="module-card"
+            data-name="whatsapp crm customer followup payment reminder messages"
+            data-open="crm"
+          >
+
+            <div class="module-icon">
+              ◉
+            </div>
+
+            <div>
+
+              <h4>
+                WhatsApp CRM
+              </h4>
+
+              <p>
+                Customers, follow-ups & reminders
+              </p>
+
+            </div>
+
+            <b>
+              ›
+            </b>
+
+          </button>
+
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =========================
+           AI ASSISTANT
+      ========================== -->
+
+      <section class="assistant">
+
+        <div class="assistant-icon">
+          ✦
+        </div>
+
+
+        <div>
+
+          <span>
+            AI ASSISTANT
+          </span>
+
+          <h3>
+            Kalakaar se poochho
+          </h3>
+
+          <p>
+            “Mera business report banao”
+            ya “Interview ke liye prepare karo”.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          id="askBtn"
+        >
+          Open
+        </button>
+
+      </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         BOTTOM NAVIGATION
+    ========================== -->
+
+    <nav class="bottom-nav">
+
+
+      <button
+        type="button"
+        class="active"
+      >
+
+        ⌂
+
+        <span>
+          Home
+        </span>
+
+      </button>
+
+
+
+      <button
+        type="button"
+      >
+
+        ▣
+
+        <span>
+          Tools
+        </span>
+
+      </button>
+
+
+
+      <button
+        type="button"
+      >
+
+        ✦
+
+        <span>
+          AI
+        </span>
+
+      </button>
+
+
+
+      <button
+        type="button"
+      >
+
+        ⚙
+
+        <span>
+          Settings
+        </span>
+
+      </button>
+
+
+    </nav>
+
 
   </div>
 
-</div>
+
+
+  <!-- =========================
+       MODAL
+  ========================== -->
+
+  <div
+    class="modal"
+    id="modal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="modal-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+
+
+      <!-- CLOSE -->
+
+      <button
+        type="button"
+        class="close"
+        id="closeModal"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+
+
+      <!-- BADGE -->
+
+      <span class="badge">
+        KALAKAAR
+      </span>
+
+
+
+      <!-- TITLE -->
+
+      <h2 id="modalTitle">
+        Welcome
+      </h2>
+
+
+
+      <!-- DESCRIPTION -->
+
+      <p id="modalText">
+        Module selected.
+      </p>
+
+
+
+      <!-- MESSAGE -->
+
+      <div class="coming">
+
+        Kalakaar module ready hai.
+        Is module ke features yahin se
+        use kar sakte ho.
+
+      </div>
+
+
+
+      <!-- ACTION -->
+
+      <button
+        type="button"
+        class="primary"
+        id="modalAction"
+      >
+        Continue
+      </button>
+
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

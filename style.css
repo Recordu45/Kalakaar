@@ -17,3 +17,221 @@ main{padding:0 16px}.hero{position:relative;margin-top:18px;border:1px solid #4b
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(900px,100%);display:grid;grid-template-columns:repeat(4,1fr);background:rgba(12,7,15,.9);backdrop-filter:blur(18px);border-top:1px solid var(--line);z-index:10}.bottom-nav button{background:none;border:0;color:#947f92;padding:11px 4px 9px;font-size:18px}.bottom-nav button span{display:block;font-size:10px;margin-top:3px}.bottom-nav button.active{color:#ff62ad}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;place-items:center;padding:20px;z-index:20}.modal.show{display:grid}.modal-card{position:relative;width:min(440px,100%);background:#160d19;border:1px solid #743056;border-radius:24px;padding:25px;box-shadow:var(--shadow)}.close{position:absolute;right:14px;top:14px}.modal-card h2{font-family:Georgia,serif;font-size:28px;margin:17px 0 8px}.modal-card p{color:var(--muted);line-height:1.5}.coming{padding:14px;border-radius:14px;background:#211320;color:#d9b8cd;font-size:12px;margin:16px 0}.primary{width:100%;border:0;border-radius:13px;padding:13px;background:#ff2f91;color:white;font-weight:700}
 @media(max-width:620px){.hero h2{font-size:32px}.module-grid{grid-template-columns:1fr}.quick-grid{grid-template-columns:repeat(2,1fr)}}
+/* =====================================================
+   KALAKAAR V2 AUTH SYSTEM
+===================================================== */
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/* AUTH CARD */
+
+.auth-card {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.auth-card h2 {
+  margin-top: 18px;
+}
+
+.auth-card > p {
+  margin-bottom: 18px;
+}
+
+
+/* AUTH TABS */
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 20px 0;
+  padding: 5px;
+  background: #211320;
+  border: 1px solid #3b2638;
+  border-radius: 14px;
+}
+
+.auth-tab {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px;
+  background: transparent;
+  color: #a994a7;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.auth-tab.active {
+  background: #ff2f91;
+  color: white;
+  box-shadow: 0 0 18px rgba(255, 47, 145, .25);
+}
+
+
+/* AUTH FORM */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-form h2 {
+  margin: 5px 0 0;
+}
+
+.auth-form p {
+  margin: 0 0 5px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 13px;
+  border: 1px solid #493044;
+  outline: none;
+  background: #100a12;
+  color: white;
+  transition: .2s;
+}
+
+.auth-form input::placeholder {
+  color: #826f80;
+}
+
+.auth-form input:focus {
+  border-color: #ff2f91;
+  box-shadow: 0 0 0 3px rgba(255, 47, 145, .10);
+}
+
+
+/* AUTH BUTTON */
+
+.auth-submit {
+  margin-top: 4px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.auth-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(255, 47, 145, .25);
+}
+
+
+/* AUTH MESSAGE */
+
+.auth-message {
+  min-height: 18px;
+  color: #ff79bb;
+  font-size: 12px;
+  text-align: center;
+}
+
+
+/* ACCOUNT */
+
+.account-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.account-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 13px;
+  border-radius: 13px;
+  background: #211320;
+  border: 1px solid #3b2638;
+}
+
+.account-info strong {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #ff79bb;
+  text-transform: uppercase;
+}
+
+.account-info span {
+  color: var(--text);
+  font-size: 14px;
+  word-break: break-word;
+}
+
+
+/* ACCOUNT BUTTON */
+
+#accountBtn {
+  transition: .2s;
+}
+
+#accountBtn:hover {
+  border-color: #ff2f91;
+  color: #ff79bb;
+}
+
+
+/* AUTH MODAL SCROLLBAR */
+
+.auth-card::-webkit-scrollbar {
+  width: 5px;
+}
+
+.auth-card::-webkit-scrollbar-thumb {
+  background: #6c2850;
+  border-radius: 10px;
+}
+
+
+/* LIGHT MODE */
+
+body.light .auth-tabs {
+  background: #f0e2ec;
+  border-color: #dcc8d8;
+}
+
+body.light .auth-tab {
+  color: #705f70;
+}
+
+body.light .auth-form input {
+  background: #fff;
+  color: #241522;
+  border-color: #d9c7d5;
+}
+
+body.light .account-info div {
+  background: #f5eaf2;
+  border-color: #dfceda;
+}
+
+
+/* MOBILE AUTH */
+
+@media (max-width: 620px) {
+
+  .auth-card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .auth-card h2 {
+    font-size: 24px;
+  }
+
+  .auth-form input {
+    padding: 12px;
+  }
+
+}

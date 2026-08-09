@@ -1,499 +1,990 @@
+/* =========================================================
+   KALAKAAR V3
+   Frontend Application Logic
+========================================================= */
+
 const API_URL = "https://kalakaar-gzvn.onrender.com";
 
 const modal = document.getElementById("modal");
 const modalTitle = document.getElementById("modalTitle");
 const modalText = document.getElementById("modalText");
+const modalAction = document.getElementById("modalAction");
+const closeModal = document.getElementById("closeModal");
 
-const names = {
-  business: [
-    "Business AI",
-    "Billing, stock, customer ledger, payment reminders and AI reports."
-  ],
-  banking: [
-    "Banking & Finance",
-    "EMI, collection, DPD/NPA, branch checklist and Excel productivity tools."
-  ],
-  jobs: [
-    "AI Resume & Jobs",
-    "Resume builder, interview preparation, job matching and application tracking."
-  ],
-  services: [
-    "Local Services",
-    "Electrician, plumber, mechanic, AC repair and other local service bookings."
-  ],
-  study: [
-    "AI Study",
-    "NCERT explanations, notes, quizzes, exam preparation and Hindi/Hinglish tutor."
-  ],
-  crm: [
-    "WhatsApp CRM",
-    "Customer records, follow-ups, payment reminders and WhatsApp message tools."
-  ],
-  emi: [
-    "EMI Calculator",
-    "EMI calculator module selected."
-  ],
-  ledger: [
-    "Customer Ledger",
-    "Customer ledger module selected."
-  ],
-  resume: [
-    "Resume Builder",
-    "Resume builder module selected."
-  ],
-  notes: [
-    "AI Notes",
-    "AI study notes module selected."
-  ]
-};
+const searchInput = document.getElementById("searchInput");
+const moduleCount = document.getElementById("moduleCount");
+
+let currentModule = null;
 
 
-/* =========================
-   OPEN MODULE
-========================= */
+/* =========================================================
+   BASIC MODAL
+========================================================= */
 
-function openModule(key) {
-  const item = names[key] || [
-    "Kalakaar",
-    "Feature selected."
-  ];
-
-  if (modalTitle) modalTitle.textContent = item[0];
-  if (modalText) modalText.textContent = item[1];
-
+function openModal() {
   if (modal) {
     modal.classList.add("show");
   }
 }
 
+function closeModule() {
+  if (modal) {
+    modal.classList.remove("show");
+  }
+}
 
-/* =========================
-   MODULE BUTTONS
-========================= */
+if (closeModal) {
+  closeModal.addEventListener("click", closeModule);
+}
 
-document.querySelectorAll("[data-open]").forEach(button => {
-  button.addEventListener("click", () => {
-    openModule(button.dataset.open);
+if (modal) {
+  modal.addEventListener("click", function (event) {
+    if (event.target === modal) {
+      closeModule();
+    }
   });
+}
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closeModule();
+  }
 });
 
 
-/* =========================
-   CLOSE MODAL
-========================= */
+/* =========================================================
+   MODAL CONTENT
+========================================================= */
 
-const closeModal = document.getElementById("closeModal");
+function showModule(title, html) {
 
-if (closeModal && modal) {
-  closeModal.addEventListener("click", () => {
-    modal.classList.remove("show");
+  currentModule = title;
+
+  modalTitle.textContent = title;
+
+  modalText.innerHTML = html;
+
+  if (modalAction) {
+    modalAction.style.display = "none";
+  }
+
+  openModal();
+}
+
+
+/* =========================================================
+   EMI CALCULATOR
+========================================================= */
+
+function openEMI() {
+
+  showModule(
+    "EMI Calculator",
+    `
+      <p>Loan amount, interest rate aur tenure enter karke EMI calculate karein.</p>
+
+      <div class="form-group">
+        <label>Loan Amount (₹)</label>
+        <input
+          class="form-input"
+          id="emiAmount"
+          type="number"
+          placeholder="100000"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Annual Interest Rate (%)</label>
+        <input
+          class="form-input"
+          id="emiRate"
+          type="number"
+          step="0.01"
+          placeholder="12"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Tenure (Months)</label>
+        <input
+          class="form-input"
+          id="emiMonths"
+          type="number"
+          placeholder="24"
+        >
+      </div>
+
+      <button class="primary" id="calculateEMI">
+        Calculate EMI
+      </button>
+
+      <div id="emiResult"></div>
+    `
+  );
+
+  document
+    .getElementById("calculateEMI")
+    .addEventListener("click", calculateEMI);
+}
+
+function calculateEMI() {
+
+  const amount =
+    Number(document.getElementById("emiAmount").value);
+
+  const annualRate =
+    Number(document.getElementById("emiRate").value);
+
+  const months =
+    Number(document.getElementById("emiMonths").value);
+
+  if (
+    !amount ||
+    !annualRate ||
+    !months ||
+    amount <= 0 ||
+    annualRate < 0 ||
+    months <= 0
+  ) {
+
+    document.getElementById("emiResult").innerHTML =
+      `<div class="result-box">
+        Please valid details enter karein.
+      </div>`;
+
+    return;
+  }
+
+  const monthlyRate =
+    annualRate / 12 / 100;
+
+  let emi;
+
+  if (monthlyRate === 0) {
+    emi = amount / months;
+  } else {
+    emi =
+      amount *
+      monthlyRate *
+      Math.pow(1 + monthlyRate, months) /
+      (Math.pow(1 + monthlyRate, months) - 1);
+  }
+
+  const totalPayment = emi * months;
+  const totalInterest = totalPayment - amount;
+
+  document.getElementById("emiResult").innerHTML =
+    `
+      <div class="result-box">
+
+        <div class="result-label">
+          Monthly EMI
+        </div>
+
+        <div class="result-main">
+          ₹${formatMoney(emi)}
+        </div>
+
+        <hr>
+
+        <div class="result-label">
+          Total Interest
+        </div>
+
+        <strong>
+          ₹${formatMoney(totalInterest)}
+        </strong>
+
+        <br><br>
+
+        <div class="result-label">
+          Total Payment
+        </div>
+
+        <strong>
+          ₹${formatMoney(totalPayment)}
+        </strong>
+
+      </div>
+    `;
+}
+
+
+/* =========================================================
+   CUSTOMER LEDGER
+========================================================= */
+
+let ledger = JSON.parse(
+  localStorage.getItem("kalakaar-ledger") || "[]"
+);
+
+function openLedger() {
+
+  showModule(
+    "Customer Ledger",
+    `
+      <p>Customer transactions add karke balance track karein.</p>
+
+      <div class="form-group">
+        <label>Customer Name</label>
+        <input
+          class="form-input"
+          id="ledgerName"
+          placeholder="Customer name"
+        >
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label>Amount</label>
+          <input
+            class="form-input"
+            id="ledgerAmount"
+            type="number"
+            placeholder="1000"
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Type</label>
+          <select
+            class="form-select"
+            id="ledgerType"
+          >
+            <option value="credit">Credit</option>
+            <option value="debit">Debit</option>
+          </select>
+        </div>
+
+      </div>
+
+      <button class="primary" id="addLedger">
+        Add Transaction
+      </button>
+
+      <div id="ledgerList"></div>
+    `
+  );
+
+  renderLedger();
+
+  document
+    .getElementById("addLedger")
+    .addEventListener("click", addLedgerEntry);
+}
+
+function addLedgerEntry() {
+
+  const name =
+    document.getElementById("ledgerName").value.trim();
+
+  const amount =
+    Number(document.getElementById("ledgerAmount").value);
+
+  const type =
+    document.getElementById("ledgerType").value;
+
+  if (!name || !amount || amount <= 0) {
+
+    alert("Customer name aur valid amount enter karein.");
+
+    return;
+  }
+
+  ledger.unshift({
+    id: Date.now(),
+    name,
+    amount,
+    type,
+    date: new Date().toLocaleDateString("en-IN")
   });
+
+  localStorage.setItem(
+    "kalakaar-ledger",
+    JSON.stringify(ledger)
+  );
+
+  document.getElementById("ledgerName").value = "";
+  document.getElementById("ledgerAmount").value = "";
+
+  renderLedger();
 }
 
+function renderLedger() {
 
-/* =========================
-   CLICK OUTSIDE MODAL
-========================= */
+  const container =
+    document.getElementById("ledgerList");
 
-if (modal) {
-  modal.addEventListener("click", event => {
-    if (event.target === modal) {
-      modal.classList.remove("show");
-    }
-  });
-}
+  if (!container) return;
 
+  if (ledger.length === 0) {
 
-/* =========================
-   AI ASSISTANT
-========================= */
+    container.innerHTML =
+      `<div class="empty">
+        No transactions yet.
+      </div>`;
 
-const askBtn = document.getElementById("askBtn");
+    return;
+  }
 
-if (askBtn) {
-  askBtn.addEventListener("click", () => {
+  container.innerHTML =
+    `
+      <div class="ledger-list">
 
-    openModule("business");
+        ${ledger.map(item => `
 
-    if (modalTitle) {
-      modalTitle.textContent = "Kalakaar AI Assistant";
-    }
+          <div class="ledger-item">
 
-    if (modalText) {
-      modalText.textContent =
-        "AI Assistant ka full chat system next phase mein connect karenge.";
-    }
+            <div>
+              <strong>${escapeHTML(item.name)}</strong>
+              <small>${item.date}</small>
+            </div>
 
-  });
-}
+            <div class="${item.type}">
+              ${item.type === "credit" ? "+" : "-"}
+              ₹${formatMoney(item.amount)}
+            </div>
 
+          </div>
 
-/* =========================
-   MODAL ACTION
-========================= */
+        `).join("")}
 
-const modalAction = document.getElementById("modalAction");
+      </div>
 
-if (modalAction && modal) {
-  modalAction.addEventListener("click", () => {
-    modal.classList.remove("show");
-  });
-}
+      <button
+        class="secondary danger"
+        id="clearLedger"
+      >
+        Clear Ledger
+      </button>
+    `;
 
+  document
+    .getElementById("clearLedger")
+    .addEventListener("click", function () {
 
-/* =========================
-   DARK / LIGHT MODE
-========================= */
+      if (
+        confirm("Kya aap poora ledger delete karna chahte hain?")
+      ) {
 
-const themeBtn = document.getElementById("themeBtn");
+        ledger = [];
 
-if (themeBtn) {
-  themeBtn.addEventListener("click", () => {
+        localStorage.setItem(
+          "kalakaar-ledger",
+          JSON.stringify(ledger)
+        );
 
-    document.body.classList.toggle("light");
-
-    const currentTheme =
-      document.body.classList.contains("light")
-        ? "light"
-        : "dark";
-
-    localStorage.setItem(
-      "kalakaar-theme",
-      currentTheme
-    );
-
-  });
-}
-
-
-/* =========================
-   LOAD SAVED THEME
-========================= */
-
-if (
-  localStorage.getItem("kalakaar-theme") === "light"
-) {
-  document.body.classList.add("light");
-}
-
-
-/* =========================
-   MODULE SEARCH
-========================= */
-
-const searchInput =
-  document.getElementById("searchInput");
-
-const moduleCards =
-  [...document.querySelectorAll(".module-card")];
-
-if (searchInput) {
-
-  searchInput.addEventListener("input", () => {
-
-    const query =
-      searchInput.value
-        .toLowerCase()
-        .trim();
-
-    let visible = 0;
-
-    moduleCards.forEach(card => {
-
-      const searchableText =
-        card.dataset.name || "";
-
-      const found =
-        !query ||
-        searchableText
-          .toLowerCase()
-          .includes(query);
-
-      card.style.display =
-        found ? "grid" : "none";
-
-      if (found) {
-        visible++;
+        renderLedger();
       }
 
     });
-
-    const moduleCount =
-      document.getElementById("moduleCount");
-
-    if (moduleCount) {
-      moduleCount.textContent =
-        query
-          ? `${visible} Found`
-          : "6 Modules";
-    }
-
-  });
-
 }
 
 
-/* =====================================================
-   KALAKAAR API
-   ===================================================== */
+/* =========================================================
+   RESUME BUILDER
+========================================================= */
 
-async function apiRequest(endpoint, options = {}) {
+function openResume() {
 
-  const response = await fetch(
-    `${API_URL}${endpoint}`,
-    {
-      ...options,
+  showModule(
+    "Resume Builder",
+    `
+      <p>Basic professional resume details enter karein.</p>
 
-      headers: {
-        "Content-Type": "application/json",
-        ...(options.headers || {})
-      }
-    }
+      <div class="form-group">
+        <label>Full Name</label>
+        <input
+          class="form-input"
+          id="resumeName"
+          placeholder="Your Name"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          class="form-input"
+          id="resumeEmail"
+          type="email"
+          placeholder="you@example.com"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Phone</label>
+        <input
+          class="form-input"
+          id="resumePhone"
+          placeholder="Mobile number"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Professional Summary</label>
+        <textarea
+          class="form-textarea"
+          id="resumeSummary"
+          placeholder="Write your professional summary..."
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Skills</label>
+        <textarea
+          class="form-textarea"
+          id="resumeSkills"
+          placeholder="Excel, Banking, Communication..."
+        ></textarea>
+      </div>
+
+      <button class="primary" id="generateResume">
+        Generate Resume
+      </button>
+
+      <div id="resumeResult"></div>
+    `
   );
 
-  let data = {};
+  document
+    .getElementById("generateResume")
+    .addEventListener("click", generateResume);
+}
 
-  try {
-    data = await response.json();
-  } catch {
-    data = {};
+function generateResume() {
+
+  const name =
+    document.getElementById("resumeName").value.trim();
+
+  const email =
+    document.getElementById("resumeEmail").value.trim();
+
+  const phone =
+    document.getElementById("resumePhone").value.trim();
+
+  const summary =
+    document.getElementById("resumeSummary").value.trim();
+
+  const skills =
+    document.getElementById("resumeSkills").value.trim();
+
+  if (!name) {
+
+    alert("Name enter karein.");
+
+    return;
   }
 
-  if (!response.ok) {
-    throw new Error(
-      data.message || "Something went wrong."
-    );
-  }
+  document.getElementById("resumeResult").innerHTML =
+    `
+      <div class="result-box">
 
-  return data;
+        <h3>${escapeHTML(name)}</h3>
+
+        <p>
+          ${escapeHTML(email)}
+          ${email && phone ? " | " : ""}
+          ${escapeHTML(phone)}
+        </p>
+
+        <hr>
+
+        <strong>Professional Summary</strong>
+
+        <p>
+          ${escapeHTML(summary || "Professional summary not added.")}
+        </p>
+
+        <strong>Skills</strong>
+
+        <p>
+          ${escapeHTML(skills || "Skills not added.")}
+        </p>
+
+        <button
+          class="primary"
+          id="printResume"
+        >
+          Print / Save PDF
+        </button>
+
+      </div>
+    `;
+
+  document
+    .getElementById("printResume")
+    .addEventListener("click", function () {
+      window.print();
+    });
 }
 
 
-/* =====================================================
-   SIGNUP
-   ===================================================== */
+/* =========================================================
+   AI NOTES
+========================================================= */
 
-async function signup(name, email, password) {
+function openNotes() {
 
-  try {
+  showModule(
+    "AI Notes",
+    `
+      <p>Topic enter karein. Kalakaar basic study notes generate karega.</p>
 
-    const data = await apiRequest(
-      "/api/auth/signup",
-      {
-        method: "POST",
+      <div class="form-group">
+        <label>Topic</label>
+        <input
+          class="form-input"
+          id="notesTopic"
+          placeholder="Example: Banking, Excel, History"
+        >
+      </div>
 
-        body: JSON.stringify({
-          name,
-          email,
-          password
-        })
-      }
-    );
+      <div class="form-group">
+        <label>Language</label>
+        <select class="form-select" id="notesLanguage">
+          <option value="Hinglish">Hinglish</option>
+          <option value="Hindi">Hindi</option>
+          <option value="English">English</option>
+        </select>
+      </div>
 
-    localStorage.setItem(
-      "kalakaar-token",
-      data.token
-    );
+      <button class="primary" id="generateNotes">
+        Generate Notes
+      </button>
 
-    localStorage.setItem(
-      "kalakaar-user",
-      JSON.stringify(data.user)
-    );
-
-    console.log(
-      "Signup successful:",
-      data.user
-    );
-
-    return data;
-
-  } catch (error) {
-
-    console.error(
-      "Signup failed:",
-      error.message
-    );
-
-    throw error;
-  }
-}
-
-
-/* =====================================================
-   LOGIN
-   ===================================================== */
-
-async function login(email, password) {
-
-  try {
-
-    const data = await apiRequest(
-      "/api/auth/login",
-      {
-        method: "POST",
-
-        body: JSON.stringify({
-          email,
-          password
-        })
-      }
-    );
-
-    localStorage.setItem(
-      "kalakaar-token",
-      data.token
-    );
-
-    localStorage.setItem(
-      "kalakaar-user",
-      JSON.stringify(data.user)
-    );
-
-    console.log(
-      "Login successful:",
-      data.user
-    );
-
-    return data;
-
-  } catch (error) {
-
-    console.error(
-      "Login failed:",
-      error.message
-    );
-
-    throw error;
-  }
-}
-
-
-/* =====================================================
-   LOGOUT
-   ===================================================== */
-
-function logout() {
-
-  localStorage.removeItem(
-    "kalakaar-token"
+      <div id="notesResult"></div>
+    `
   );
 
-  localStorage.removeItem(
-    "kalakaar-user"
+  document
+    .getElementById("generateNotes")
+    .addEventListener("click", generateNotes);
+}
+
+function generateNotes() {
+
+  const topic =
+    document.getElementById("notesTopic").value.trim();
+
+  const language =
+    document.getElementById("notesLanguage").value;
+
+  if (!topic) {
+
+    alert("Topic enter karein.");
+
+    return;
+  }
+
+  let content = "";
+
+  if (language === "Hinglish") {
+
+    content = `
+      <h3>${escapeHTML(topic)}</h3>
+
+      <p>
+        <strong>Definition:</strong>
+        ${escapeHTML(topic)} ko simple language mein samajhne ke liye
+        iska basic concept, important points aur practical examples
+        ko study karein.
+      </p>
+
+      <p>
+        <strong>Important Points:</strong>
+      </p>
+
+      <ul>
+        <li>Basic concept samjhein.</li>
+        <li>Important terms note karein.</li>
+        <li>Real-life example dekhein.</li>
+        <li>Practice questions solve karein.</li>
+      </ul>
+
+      <p>
+        <strong>Revision Tip:</strong>
+        Topic ko short points mein revise karein.
+      </p>
+    `;
+
+  } else {
+
+    content = `
+      <h3>${escapeHTML(topic)}</h3>
+
+      <p>
+        Study notes for ${escapeHTML(topic)}.
+      </p>
+
+      <ul>
+        <li>Understand the basic concept.</li>
+        <li>Learn important terminology.</li>
+        <li>Review practical examples.</li>
+        <li>Practice related questions.</li>
+      </ul>
+    `;
+  }
+
+  document.getElementById("notesResult").innerHTML =
+    `<div class="result-box">${content}</div>`;
+}
+
+
+/* =========================================================
+   BUSINESS AI
+========================================================= */
+
+function openBusiness() {
+
+  showModule(
+    "Business AI",
+    `
+      <p>Business calculation aur report tools.</p>
+
+      <div class="form-group">
+        <label>Sales (₹)</label>
+        <input
+          class="form-input"
+          id="businessSales"
+          type="number"
+          placeholder="50000"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Expenses (₹)</label>
+        <input
+          class="form-input"
+          id="businessExpenses"
+          type="number"
+          placeholder="30000"
+        >
+      </div>
+
+      <button class="primary" id="businessReport">
+        Generate Report
+      </button>
+
+      <div id="businessResult"></div>
+    `
   );
 
-  console.log(
-    "Logged out successfully."
+  document
+    .getElementById("businessReport")
+    .addEventListener("click", generateBusinessReport);
+}
+
+function generateBusinessReport() {
+
+  const sales =
+    Number(document.getElementById("businessSales").value);
+
+  const expenses =
+    Number(document.getElementById("businessExpenses").value);
+
+  if (sales < 0 || expenses < 0) {
+
+    alert("Valid amount enter karein.");
+
+    return;
+  }
+
+  const profit = sales - expenses;
+
+  document.getElementById("businessResult").innerHTML =
+    `
+      <div class="result-box">
+
+        <div class="result-label">
+          Total Sales
+        </div>
+
+        <strong>
+          ₹${formatMoney(sales)}
+        </strong>
+
+        <br><br>
+
+        <div class="result-label">
+          Total Expenses
+        </div>
+
+        <strong>
+          ₹${formatMoney(expenses)}
+        </strong>
+
+        <br><br>
+
+        <div class="result-label">
+          ${profit >= 0 ? "Profit" : "Loss"}
+        </div>
+
+        <div class="result-main">
+          ₹${formatMoney(Math.abs(profit))}
+        </div>
+
+      </div>
+    `;
+}
+
+
+/* =========================================================
+   BANKING & FINANCE
+========================================================= */
+
+function openBanking() {
+
+  showModule(
+    "Banking & Finance",
+    `
+      <p>Banking productivity tools.</p>
+
+      <div class="quick-grid">
+
+        <button class="quick-card" id="bankEMI">
+          <strong>₹</strong>
+          <span>EMI</span>
+        </button>
+
+        <button class="quick-card" id="bankDPD">
+          <strong>DPD</strong>
+          <span>DPD Check</span>
+        </button>
+
+      </div>
+
+      <div id="bankResult"></div>
+    `
   );
 
+  document
+    .getElementById("bankEMI")
+    .addEventListener("click", openEMI);
+
+  document
+    .getElementById("bankDPD")
+    .addEventListener("click", openDPD);
 }
 
+function openDPD() {
 
-/* =====================================================
-   CURRENT USER
-   ===================================================== */
+  showModule(
+    "DPD Calculator",
+    `
+      <p>Last payment date aur due date ke basis par DPD calculate karein.</p>
 
-function getCurrentUser() {
+      <div class="form-group">
+        <label>Due Date</label>
+        <input
+          class="form-input"
+          id="dueDate"
+          type="date"
+        >
+      </div>
 
-  const user =
-    localStorage.getItem(
-      "kalakaar-user"
-    );
+      <div class="form-group">
+        <label>Payment Date</label>
+        <input
+          class="form-input"
+          id="paymentDate"
+          type="date"
+        >
+      </div>
 
-  if (!user) {
-    return null;
-  }
+      <button class="primary" id="calculateDPD">
+        Calculate DPD
+      </button>
 
-  try {
-    return JSON.parse(user);
-  } catch {
-    return null;
-  }
+      <div id="dpdResult"></div>
+    `
+  );
 
+  document
+    .getElementById("calculateDPD")
+    .addEventListener("click", calculateDPD);
 }
 
+function calculateDPD() {
 
-/* =====================================================
-   API HEALTH CHECK
-   ===================================================== */
+  const due =
+    new Date(document.getElementById("dueDate").value);
 
-async function checkAPI() {
-
-  try {
-
-    const data =
-      await apiRequest("/api/health");
-
-    console.log(
-      "Kalakaar API:",
-      data
-    );
-
-    return data;
-
-  } catch (error) {
-
-    console.error(
-      "API connection failed:",
-      error.message
-    );
-
-    return null;
-  }
-
-}
-
-
-/* =====================================================
-   MAKE FUNCTIONS AVAILABLE
-   ===================================================== */
-
-window.Kalakaar = {
-
-  API_URL,
-
-  signup,
-
-  login,
-
-  logout,
-
-  getCurrentUser,
-
-  checkAPI
-
-};
-
-
-/* =========================
-   ESCAPE KEY
-========================= */
-
-document.addEventListener("keydown", event => {
+  const payment =
+    new Date(document.getElementById("paymentDate").value);
 
   if (
-    event.key === "Escape" &&
-    modal
+    isNaN(due.getTime()) ||
+    isNaN(payment.getTime())
   ) {
 
-    modal.classList.remove("show");
+    alert("Dates select karein.");
 
+    return;
   }
 
-});
+  const difference =
+    Math.ceil(
+      (payment - due) /
+      (1000 * 60 * 60 * 24)
+    );
+
+  const dpd =
+    Math.max(0, difference);
+
+  document.getElementById("dpdResult").innerHTML =
+    `
+      <div class="result-box">
+
+        <div class="result-label">
+          Days Past Due
+        </div>
+
+        <div class="result-main">
+          ${dpd} DPD
+        </div>
+
+      </div>
+    `;
+}
 
 
-/* =========================
-   STARTUP
-========================= */
+/* =========================================================
+   JOBS
+========================================================= */
 
-console.log(
-  "Kalakaar V2 frontend loaded."
-);
+function openJobs() {
 
-console.log(
-  "API:",
-  API_URL
-);
+  showModule(
+    "AI Resume & Jobs",
+    `
+      <p>Resume aur interview preparation tools.</p>
 
-checkAPI();
+      <button class="primary" id="jobResume">
+        Open Resume Builder
+      </button>
+
+      <button class="secondary" id="jobInterview">
+        Interview Questions
+      </button>
+
+      <div id="jobResult"></div>
+    `
+  );
+
+  document
+    .getElementById("jobResume")
+    .addEventListener("click", openResume);
+
+  document
+    .getElementById("jobInterview")
+    .addEventListener("click", function () {
+
+      document.getElementById("jobResult").innerHTML =
+        `
+          <div class="result-box">
+
+            <h3>Interview Preparation</h3>
+
+            <ol>
+              <li>Tell me about yourself.</li>
+              <li>What are your strengths?</li>
+              <li>Why should we hire you?</li>
+              <li>Why do you want this job?</li>
+              <li>Where do you see yourself in 5 years?</li>
+            </ol>
+
+          </div>
+        `;
+    });
+}
+
+
+/* =========================================================
+   LOCAL SERVICES
+========================================================= */
+
+function openServices() {
+
+  showModule(
+    "Local Services",
+    `
+      <p>Service category select karein.</p>
+
+      <div class="quick-grid">
+
+        <button class="quick-card serviceBtn">
+          <strong>⚡</strong>
+          <span>Electrician</span>
+        </button>
+
+        <button class="quick-card serviceBtn">
+          <strong>🔧</strong>
+          <span>Plumber</span>
+        </button>
+
+        <button class="quick-card serviceBtn">
+          <strong>🚗</strong>
+          <span>Mechanic</span>
+        </button>
+
+        <button class="quick-card serviceBtn">
+          <strong>❄</strong>
+          <span>AC Repair</span>
+        </button>
+
+      </div>
+
+      <div id="serviceResult"></div>
+    `
+  );
+
+  document
+    .querySelectorAll(".serviceBtn")
+    .forEach(button => {
+
+      button.addEventListener("click", function () {
+
+        document.getElementById("serviceResult").innerHTML =
+          `
+            <div class="result-box">
+
+              <strong>
+                ${this.innerText} selected
+              </strong>
+
+              <p>
+                Booking system next phase mein
+                backend ke saath connect kiya ja sakta hai.
+              </p>
+
+            </div>
+          `;
+      });
+
+    });
+}
+
+
+/* =========================================================
+   STUDY
+========================================================= */
+
+function openStudy() {
+  openNotes();
+}
+
+
+/* =========================================================
+   WHATSAPP CRM
+========================================================= */
+
+function openCRM() {
+
+  showModule(
+    "WhatsApp CRM",
+    `
+      <p>Customer follow-up message prepare karein.</p>
+
+      <div class="form-group">
+  

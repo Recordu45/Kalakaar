@@ -850,3 +850,47 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
 });
+.tool-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tool-form label {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.tool-form input {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 13px;
+  outline: none;
+}
+
+.tool-form input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 2px rgba(255,47,145,.12);
+}
+
+.tool-result {
+  margin-top: 10px;
+  padding: 15px;
+  border-radius: 14px;
+  background: rgba(255,47,145,.08);
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+
+.tool-result h3 {
+  margin-top: 0;
+  color: var(--pink2);
+}
+
+.tool-result p {
+  margin: 8px 0;
+}

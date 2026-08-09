@@ -28,95 +28,73 @@ router.post("/signup", async (req, res) => {
 
   try {
 
-    const {
-      name,
-      email,
-      password
-    } = req.body;
+    const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-
       return res.status(400).json({
-        message:
-          "Name, email and password are required."
+        message: "Name, email and password are required."
       });
-
     }
 
     if (password.length < 8) {
-
       return res.status(400).json({
-        message:
-          "Password must be at least 8 characters."
+        message: "Password must be at least 8 characters."
       });
-
     }
 
-    const normalizedEmail =
-      email.trim().toLowerCase();
+    const normalizedEmail = email.trim().toLowerCase();
 
-    const existingUser =
-      await User.findOne({
-        email: normalizedEmail
-      });
+    const existingUser = await User.findOne({ email: normalizedEmail });
 
     if (existingUser) {
-
       return res.status(409).json({
-        message:
-          "An account with this email already exists."
+        message: "An account with this email already exists."
       });
-
     }
 
-    const passwordHash =
-      await bcrypt.hash(
-        password,
-        12
-      );
+    const passwordHash = await bcrypt.hash(password, 12);
 
-    const user =
-      await User.create({
+    const user = await User.create({
+      name: name.trim(),
+      email: normalizedEmail,
+      passwordHash
+    });
 
-        name: name.trim(),
-
-        email: normalizedEmail,
-
-        passwordHash
-
-      });
-
-    const token =
-      createToken(user);
+    const token = createToken(user);
 
     res.status(201).json({
-
-      message:
-        "Account created successfully.",
-
+      message: "Account created successfully.",
       token,
-
       user: {
-
         id: user._id,
-
         name: user.name,
-
         email: user.email
-
       }
-
     });
 
   } catch (error) {
 
-    console.error(error);
+    console.error("SIGNUP ERROR:", error);
 
+    // Duplicate key error (e.g. unique email index conflict)
+    if (error.code === 11000) {
+      return res.status(409).json({
+        message: "An account with this email already exists."
+      });
+    }
+
+    // Mongoose validation error (missing/invalid schema field)
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        message: "Validation failed: " + error.message
+      });
+    }
+
+    // TEMPORARY: show real error while debugging.
+    // Remove the "debug" line once everything works.
     res.status(500).json({
-
-      message:
-        "Unable to create account."
-
+      message: "Unable to create account.",
+      debug: error.message
     });
 
   }
@@ -132,94 +110,51 @@ router.post("/login", async (req, res) => {
 
   try {
 
-    const {
-      email,
-      password
-    } = req.body;
+    const { email, password } = req.body;
 
     if (!email || !password) {
-
       return res.status(400).json({
-
-        message:
-          "Email and password are required."
-
+        message: "Email and password are required."
       });
-
     }
 
-    const normalizedEmail =
-      email.trim().toLowerCase();
+    const normalizedEmail = email.trim().toLowerCase();
 
-    const user =
-      await User.findOne({
-
-        email: normalizedEmail
-
-      }).select("+passwordHash");
+    const user = await User.findOne({ email: normalizedEmail }).select("+passwordHash");
 
     if (!user) {
-
       return res.status(401).json({
-
-        message:
-          "Invalid email or password."
-
+        message: "Invalid email or password."
       });
-
     }
 
-    const validPassword =
-      await bcrypt.compare(
-
-        password,
-
-        user.passwordHash
-
-      );
+    const validPassword = await bcrypt.compare(password, user.passwordHash);
 
     if (!validPassword) {
-
       return res.status(401).json({
-
-        message:
-          "Invalid email or password."
-
+        message: "Invalid email or password."
       });
-
     }
 
-    const token =
-      createToken(user);
+    const token = createToken(user);
 
     res.json({
-
-      message:
-        "Login successful.",
-
+      message: "Login successful.",
       token,
-
       user: {
-
         id: user._id,
-
         name: user.name,
-
         email: user.email
-
       }
-
     });
 
   } catch (error) {
 
-    console.error(error);
+    console.error("LOGIN ERROR:", error);
 
     res.status(500).json({
-
-      message:
-        "Unable to login."
-
+      message: "Unable to login.",
+      debug: error.message
     });
 
   }

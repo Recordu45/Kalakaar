@@ -3,1087 +3,529 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <meta name="theme-color" content="#120817">
-  <title>Kalakaar | All-in-One AI App</title>
+  <meta name="description" content="Kalakaar - All-in-One AI Hub">
+
+  <title>Kalakaar V3 | All-in-One AI Hub</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div class="app-shell">
+<div class="app-shell">
 
-    <!-- =========================
-         TOP BAR
-    ========================== -->
+  <!-- =========================
+       TOP BAR
+  ========================== -->
 
-    <header class="topbar">
+  <header class="topbar">
 
-      <div class="brand">
+    <div class="brand">
 
-        <img
-          src="assets/Kalakaar.jpg"
-          alt="Kalakaar"
-          class="brand-logo"
-        >
+      <div class="brand-mark">
+        K
+      </div>
 
-        <div>
-          <h1>KALAKAAR</h1>
-          <p>All-in-One AI Hub</p>
+      <div>
+        <h1>KALAKAAR</h1>
+        <p>All-in-One AI Hub</p>
+      </div>
+
+    </div>
+
+    <div class="top-actions">
+
+      <button
+        class="icon-btn"
+        id="accountBtn"
+        title="Account">
+        ●
+      </button>
+
+      <button
+        class="icon-btn"
+        id="themeBtn"
+        title="Toggle Theme">
+        ◐
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+
+  <main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <span class="badge">
+          KALAKAAR V3
+        </span>
+
+        <h2>
+          Sab kuch,
+          <span>ek app</span>
+          mein.
+        </h2>
+
+        <p>
+          Business, Banking, Jobs, Study,
+          Services aur WhatsApp tools ek hi jagah.
+        </p>
+
+        <div class="search-box">
+
+          <span>⌕</span>
+
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Search a feature...">
+
         </div>
 
       </div>
 
-      <div class="top-actions">
+    </section>
+
+
+    <!-- =========================
+         QUICK TOOLS
+    ========================== -->
+
+    <section class="quick">
+
+      <div class="section-title">
+
+        <h3>
+          Quick Tools
+        </h3>
+
+        <span>
+          LIVE
+        </span>
+
+      </div>
+
+
+      <div class="quick-grid">
 
         <button
-          class="icon-btn"
-          id="accountBtn"
-          aria-label="Account"
-        >
-          ◉
+          class="quick-card"
+          data-open="emi">
+
+          <strong>₹</strong>
+
+          <span>
+            EMI Calculator
+          </span>
+
         </button>
 
+
         <button
-          class="icon-btn"
-          id="themeBtn"
-          aria-label="Toggle theme"
-        >
-          ◐
+          class="quick-card"
+          data-open="ledger">
+
+          <strong>▤</strong>
+
+          <span>
+            Customer Ledger
+          </span>
+
+        </button>
+
+
+        <button
+          class="quick-card"
+          data-open="resume">
+
+          <strong>CV</strong>
+
+          <span>
+            Resume Builder
+          </span>
+
+        </button>
+
+
+        <button
+          class="quick-card"
+          data-open="notes">
+
+          <strong>✦</strong>
+
+          <span>
+            AI Notes
+          </span>
+
         </button>
 
       </div>
 
-    </header>
+    </section>
 
 
     <!-- =========================
-         MAIN
+         MODULES
     ========================== -->
 
-    <main>
+    <section class="modules">
 
-      <!-- HERO -->
+      <div class="section-title">
 
-      <section class="hero">
+        <h3>
+          Kalakaar Modules
+        </h3>
 
-        <div class="hero-glow"></div>
+        <span id="moduleCount">
+          6 Modules
+        </span>
 
-        <div class="hero-content">
+      </div>
 
-          <span class="badge">
-            KALAKAAR V2
-          </span>
 
-          <h2>
-            Sab kuch, <span>ek app</span> mein.
-          </h2>
+      <div
+        class="module-grid"
+        id="moduleGrid">
 
-          <p>
-            Business, Banking, Jobs, Study, Services
-            aur WhatsApp tools ek hi jagah.
-          </p>
 
-          <div class="search-box">
+        <!-- BUSINESS -->
 
-            <span>⌕</span>
+        <button
+          class="module-card"
+          data-name="business ai billing stock customer ledger payment reports"
+          data-open="business">
 
-            <input
-              id="searchInput"
-              type="search"
-              placeholder="Search a feature..."
-            >
+          <div class="module-icon">
+            ▣
+          </div>
+
+          <div>
+
+            <h4>
+              Business AI
+            </h4>
+
+            <p>
+              Billing, stock, ledger & reports
+            </p>
 
           </div>
 
-        </div>
+          <b>
+            ›
+          </b>
 
-      </section>
-
-
-      <!-- QUICK TOOLS -->
-
-      <section class="quick">
-
-        <div class="section-title">
-
-          <h3>Quick Tools</h3>
-
-          <span>V2</span>
-
-        </div>
-
-
-        <div class="quick-grid">
-
-          <button
-            class="quick-card"
-            data-open="emi"
-          >
-            <strong>₹</strong>
-            <span>EMI Calculator</span>
-          </button>
-
-
-          <button
-            class="quick-card"
-            data-open="ledger"
-          >
-            <strong>▤</strong>
-            <span>Customer Ledger</span>
-          </button>
-
-
-          <button
-            class="quick-card"
-            data-open="resume"
-          >
-            <strong>CV</strong>
-            <span>Resume Builder</span>
-          </button>
-
-
-          <button
-            class="quick-card"
-            data-open="notes"
-          >
-            <strong>✦</strong>
-            <span>AI Notes</span>
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <!-- MODULES -->
-
-      <section class="modules">
-
-        <div class="section-title">
-
-          <h3>
-            Kalakaar Modules
-          </h3>
-
-          <span id="moduleCount">
-            6 Modules
-          </span>
-
-        </div>
-
-
-        <div
-          class="module-grid"
-          id="moduleGrid"
-        >
-
-
-          <button
-            class="module-card"
-            data-name="business ai billing stock customer ledger payment whatsapp reports"
-            data-open="business"
-          >
-
-            <div class="module-icon">
-              ▣
-            </div>
-
-            <div>
-
-              <h4>
-                Business AI
-              </h4>
-
-              <p>
-                Billing, stock, ledger & reports
-              </p>
-
-            </div>
-
-            <b>›</b>
-
-          </button>
-
-
-          <button
-            class="module-card"
-            data-name="banking finance emi collection dpd npa branch excel"
-            data-open="banking"
-          >
-
-            <div class="module-icon">
-              ₹
-            </div>
-
-            <div>
-
-              <h4>
-                Banking & Finance
-              </h4>
-
-              <p>
-                EMI, collection, DPD/NPA & tools
-              </p>
-
-            </div>
-
-            <b>›</b>
-
-          </button>
-
-
-          <button
-            class="module-card"
-            data-name="resume jobs cv interview application career ai"
-            data-open="jobs"
-          >
-
-            <div class="module-icon">
-              CV
-            </div>
-
-            <div>
-
-              <h4>
-                AI Resume & Jobs
-              </h4>
-
-              <p>
-                Resume, interview & job tracker
-              </p>
-
-            </div>
-
-            <b>›</b>
-
-          </button>
-
-
-          <button
-            class="module-card"
-            data-name="local service electrician plumber mechanic ac repair booking"
-            data-open="services"
-          >
-
-            <div class="module-icon">
-              ⌂
-            </div>
-
-            <div>
-
-              <h4>
-                Local Services
-              </h4>
-
-              <p>
-                Book trusted local professionals
-              </p>
-
-            </div>
-
-            <b>›</b>
-
-          </button>
-
-
-          <button
-            class="module-card"
-            data-name="study ncert notes quiz exam tutor hindi"
-            data-open="study"
-          >
-
-            <div class="module-icon">
-              ✦
-            </div>
-
-            <div>
-
-              <h4>
-                AI Study
-              </h4>
-
-              <p>
-                Notes, quiz, NCERT & AI tutor
-              </p>
-
-            </div>
-
-            <b>›</b>
-
-          </button>
-
-
-          <button
-            class="module-card"
-            data-name="whatsapp crm customer followup payment reminder messages"
-            data-open="crm"
-          >
-
-            <div class="module-icon">
-              ◉
-            </div>
-
-            <div>
-
-              <h4>
-                WhatsApp CRM
-              </h4>
-
-              <p>
-                Customers, follow-ups & reminders
-              </p>
-
-            </div>
-
-            <b>›</b>
-
-          </button>
-
-
-        </div>
-
-      </section>
-
-
-      <!-- AI ASSISTANT -->
-
-      <section class="assistant">
-
-        <div class="assistant-icon">
-          ✦
-        </div>
-
-        <div>
-
-          <span>
-            AI ASSISTANT
-          </span>
-
-          <h3>
-            Kalakaar se poochho
-          </h3>
-
-          <p>
-            “Mera business report banao”
-            ya “Interview ke liye prepare karo”.
-          </p>
-
-        </div>
-
-        <button id="askBtn">
-          Open
         </button>
 
-      </section>
 
-    </main>
+        <!-- BANKING -->
+
+        <button
+          class="module-card"
+          data-name="banking finance emi collection dpd npa branch excel"
+          data-open="banking">
+
+          <div class="module-icon">
+            ₹
+          </div>
+
+          <div>
+
+            <h4>
+              Banking & Finance
+            </h4>
+
+            <p>
+              EMI, collection, DPD/NPA & tools
+            </p>
+
+          </div>
+
+          <b>
+            ›
+          </b>
+
+        </button>
+
+
+        <!-- JOBS -->
+
+        <button
+          class="module-card"
+          data-name="resume jobs cv interview application career ai"
+          data-open="jobs">
+
+          <div class="module-icon">
+            CV
+          </div>
+
+          <div>
+
+            <h4>
+              AI Resume & Jobs
+            </h4>
+
+            <p>
+              Resume, interview & job tracker
+            </p>
+
+          </div>
+
+          <b>
+            ›
+          </b>
+
+        </button>
+
+
+        <!-- SERVICES -->
+
+        <button
+          class="module-card"
+          data-name="local service electrician plumber mechanic ac repair booking"
+          data-open="services">
+
+          <div class="module-icon">
+            ⌂
+          </div>
+
+          <div>
+
+            <h4>
+              Local Services
+            </h4>
+
+            <p>
+              Service request manager
+            </p>
+
+          </div>
+
+          <b>
+            ›
+          </b>
+
+        </button>
+
+
+        <!-- STUDY -->
+
+        <button
+          class="module-card"
+          data-name="study ncert notes quiz exam tutor hindi"
+          data-open="study">
+
+          <div class="module-icon">
+            ✦
+          </div>
+
+          <div>
+
+            <h4>
+              AI Study
+            </h4>
+
+            <p>
+              Notes, quiz & study planner
+            </p>
+
+          </div>
+
+          <b>
+            ›
+          </b>
+
+        </button>
+
+
+        <!-- WHATSAPP CRM -->
+
+        <button
+          class="module-card"
+          data-name="whatsapp crm customer followup payment reminder messages"
+          data-open="crm">
+
+          <div class="module-icon">
+            ◉
+          </div>
+
+          <div>
+
+            <h4>
+              WhatsApp CRM
+            </h4>
+
+            <p>
+              Customers, follow-ups & reminders
+            </p>
+
+          </div>
+
+          <b>
+            ›
+          </b>
+
+        </button>
+
+
+      </div>
+
+    </section>
 
 
     <!-- =========================
-         BOTTOM NAV
+         AI ASSISTANT
     ========================== -->
 
-    <nav class="bottom-nav">
+    <section class="assistant">
 
-      <button class="active">
-        ⌂
-        <span>Home</span>
-      </button>
-
-      <button>
-        ▣
-        <span>Tools</span>
-      </button>
-
-      <button>
+      <div class="assistant-icon">
         ✦
-        <span>AI</span>
+      </div>
+
+      <div>
+
+        <span>
+          AI ASSISTANT
+        </span>
+
+        <h3>
+          Kalakaar se poochho
+        </h3>
+
+        <p>
+          Calculator, resume, study notes
+          aur business helpers yahin se open karo.
+        </p>
+
+      </div>
+
+      <button id="askBtn">
+        Open
       </button>
 
-      <button id="settingsBtn">
-        ⚙
-        <span>Settings</span>
-      </button>
+    </section>
 
-    </nav>
-
-  </div>
+  </main>
 
 
   <!-- =========================
-       MODULE MODAL
+       BOTTOM NAVIGATION
   ========================== -->
 
-  <div
-    class="modal"
-    id="modal"
-  >
+  <nav class="bottom-nav">
 
-    <div class="modal-card">
+    <button
+      class="active"
+      data-tab="home">
 
-      <button
-        class="close"
-        id="closeModal"
-      >
-        ×
-      </button>
+      ⌂
 
-      <span class="badge">
-        KALAKAAR
+      <span>
+        Home
       </span>
 
-      <h2 id="modalTitle">
-        Welcome
-      </h2>
+    </button>
 
-      <p id="modalText">
-        Module selected.
-      </p>
 
-      <div class="coming">
-        V2 module shell ready.
-        Is module ke real features next phase mein add karenge.
-      </div>
+    <button
+      data-tab="tools">
 
-      <button
-        class="primary"
-        id="modalAction"
-      >
-        Continue
-      </button>
+      ▣
+
+      <span>
+        Tools
+      </span>
+
+    </button>
+
+
+    <button
+      data-tab="ai">
+
+      ✦
+
+      <span>
+        AI
+      </span>
+
+    </button>
+
+
+    <button
+      data-tab="settings">
+
+      ⚙
+
+      <span>
+        Settings
+      </span>
+
+    </button>
+
+  </nav>
+
+</div>
+
+
+<!-- =========================
+     UNIVERSAL MODAL
+========================== -->
+
+<div
+  class="modal"
+  id="modal">
+
+  <div
+    class="modal-card"
+    id="modalCard">
+
+    <button
+      class="close"
+      id="closeModal">
+
+      ×
+
+    </button>
+
+
+    <span
+      class="badge"
+      id="modalBadge">
+
+      KALAKAAR
+
+    </span>
+
+
+    <div id="modalBody">
+
+      <!-- JavaScript will load module here -->
 
     </div>
 
   </div>
 
+</div>
 
-  <!-- =========================
-       AUTH MODAL
-  ========================== -->
 
-  <div
-    class="modal"
-    id="authModal"
-  >
+<!-- =========================
+     JAVASCRIPT
+========================== -->
 
-    <div class="modal-card auth-card">
-
-      <button
-        class="close"
-        id="closeAuth"
-      >
-        ×
-      </button>
-
-      <span class="badge">
-        KALAKAAR ACCOUNT
-      </span>
-
-
-      <!-- AUTH TABS -->
-
-      <div class="auth-tabs">
-
-        <button
-          id="loginTab"
-          class="auth-tab active"
-        >
-          Login
-        </button>
-
-        <button
-          id="signupTab"
-          class="auth-tab"
-        >
-          Sign Up
-        </button>
-
-      </div>
-
-
-      <!-- LOGIN -->
-
-      <form
-        id="loginForm"
-        class="auth-form"
-      >
-
-        <h2>
-          Welcome Back
-        </h2>
-
-        <p>
-          Apne Kalakaar account mein login karein.
-        </p>
-
-
-        <input
-          id="loginEmail"
-          type="email"
-          placeholder="Email address"
-          autocomplete="email"
-          required
-        >
-
-
-        <input
-          id="loginPassword"
-          type="password"
-          placeholder="Password"
-          autocomplete="current-password"
-          required
-        >
-
-
-        <button
-          type="submit"
-          class="primary auth-submit"
-        >
-          Login
-        </button>
-
-
-        <div
-          id="loginMessage"
-          class="auth-message"
-        ></div>
-
-      </form>
-
-
-      <!-- SIGNUP -->
-
-      <form
-        id="signupForm"
-        class="auth-form"
-        style="display:none;"
-      >
-
-        <h2>
-          Create Account
-        </h2>
-
-        <p>
-          Kalakaar ke saath apna account banayein.
-        </p>
-
-
-        <input
-          id="signupName"
-          type="text"
-          placeholder="Full name"
-          autocomplete="name"
-          required
-        >
-
-
-        <input
-          id="signupEmail"
-          type="email"
-          placeholder="Email address"
-          autocomplete="email"
-          required
-        >
-
-
-        <input
-          id="signupPassword"
-          type="password"
-          placeholder="Password (minimum 8 characters)"
-          autocomplete="new-password"
-          minlength="8"
-          required
-        >
-
-
-        <button
-          type="submit"
-          class="primary auth-submit"
-        >
-          Create Account
-        </button>
-
-
-        <div
-          id="signupMessage"
-          class="auth-message"
-        ></div>
-
-      </form>
-
-
-      <!-- ACCOUNT -->
-
-      <div
-        id="accountPanel"
-        style="display:none;"
-      >
-
-        <h2>
-          My Account
-        </h2>
-
-        <div
-          id="accountInfo"
-          class="account-info"
-        ></div>
-
-        <button
-          id="logoutBtn"
-          class="primary"
-        >
-          Logout
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- =========================
-       SCRIPT
-  ========================== -->
-
-  <script src="script.js"></script>
-
-
-  <!-- =========================
-       AUTH SYSTEM
-  ========================== -->
-
-  <script>
-
-    const authModal =
-      document.getElementById("authModal");
-
-    const accountBtn =
-      document.getElementById("accountBtn");
-
-    const closeAuth =
-      document.getElementById("closeAuth");
-
-    const loginTab =
-      document.getElementById("loginTab");
-
-    const signupTab =
-      document.getElementById("signupTab");
-
-    const loginForm =
-      document.getElementById("loginForm");
-
-    const signupForm =
-      document.getElementById("signupForm");
-
-    const accountPanel =
-      document.getElementById("accountPanel");
-
-    const loginMessage =
-      document.getElementById("loginMessage");
-
-    const signupMessage =
-      document.getElementById("signupMessage");
-
-    const accountInfo =
-      document.getElementById("accountInfo");
-
-    const logoutBtn =
-      document.getElementById("logoutBtn");
-
-
-    /* =========================
-       OPEN ACCOUNT
-    ========================== */
-
-    if (accountBtn) {
-
-      accountBtn.addEventListener(
-        "click",
-        () => {
-
-          authModal.classList.add("show");
-
-          showAccountState();
-
-        }
-      );
-
-    }
-
-
-    /* =========================
-       CLOSE AUTH
-    ========================== */
-
-    if (closeAuth) {
-
-      closeAuth.addEventListener(
-        "click",
-        () => {
-
-          authModal.classList.remove("show");
-
-        }
-      );
-
-    }
-
-
-    /* =========================
-       CLICK OUTSIDE
-    ========================== */
-
-    if (authModal) {
-
-      authModal.addEventListener(
-        "click",
-        event => {
-
-          if (
-            event.target === authModal
-          ) {
-
-            authModal.classList.remove(
-              "show"
-            );
-
-          }
-
-        }
-      );
-
-    }
-
-
-    /* =========================
-       LOGIN TAB
-    ========================== */
-
-    loginTab.addEventListener(
-      "click",
-      () => {
-
-        loginTab.classList.add(
-          "active"
-        );
-
-        signupTab.classList.remove(
-          "active"
-        );
-
-        loginForm.style.display =
-          "block";
-
-        signupForm.style.display =
-          "none";
-
-        accountPanel.style.display =
-          "none";
-
-      }
-    );
-
-
-    /* =========================
-       SIGNUP TAB
-    ========================== */
-
-    signupTab.addEventListener(
-      "click",
-      () => {
-
-        signupTab.classList.add(
-          "active"
-        );
-
-        loginTab.classList.remove(
-          "active"
-        );
-
-        loginForm.style.display =
-          "none";
-
-        signupForm.style.display =
-          "block";
-
-        accountPanel.style.display =
-          "none";
-
-      }
-    );
-
-
-    /* =========================
-       LOGIN
-    ========================== */
-
-    loginForm.addEventListener(
-      "submit",
-      async event => {
-
-        event.preventDefault();
-
-        loginMessage.textContent =
-          "Logging in...";
-
-
-        const email =
-          document.getElementById(
-            "loginEmail"
-          ).value;
-
-        const password =
-          document.getElementById(
-            "loginPassword"
-          ).value;
-
-
-        try {
-
-          const data =
-            await window.Kalakaar.login(
-              email,
-              password
-            );
-
-
-          loginMessage.textContent =
-            "Login successful.";
-
-
-          setTimeout(
-            () => {
-
-              authModal.classList.remove(
-                "show"
-              );
-
-              showAccountState();
-
-            },
-            700
-          );
-
-
-        } catch (error) {
-
-          loginMessage.textContent =
-            error.message;
-
-        }
-
-      }
-    );
-
-
-    /* =========================
-       SIGNUP
-    ========================== */
-
-    signupForm.addEventListener(
-      "submit",
-      async event => {
-
-        event.preventDefault();
-
-        signupMessage.textContent =
-          "Creating account...";
-
-
-        const name =
-          document.getElementById(
-            "signupName"
-          ).value;
-
-        const email =
-          document.getElementById(
-            "signupEmail"
-          ).value;
-
-        const password =
-          document.getElementById(
-            "signupPassword"
-          ).value;
-
-
-        try {
-
-          const data =
-            await window.Kalakaar.signup(
-              name,
-              email,
-              password
-            );
-
-
-          signupMessage.textContent =
-            "Account created successfully.";
-
-
-          setTimeout(
-            () => {
-
-              authModal.classList.remove(
-                "show"
-              );
-
-              showAccountState();
-
-            },
-            700
-          );
-
-
-        } catch (error) {
-
-          signupMessage.textContent =
-            error.message;
-
-        }
-
-      }
-    );
-
-
-    /* =========================
-       ACCOUNT STATE
-    ========================== */
-
-    function showAccountState() {
-
-      const user =
-        window.Kalakaar.getCurrentUser();
-
-
-      if (!user) {
-
-        loginForm.style.display =
-          "block";
-
-        signupForm.style.display =
-          "none";
-
-        accountPanel.style.display =
-          "none";
-
-        loginTab.classList.add(
-          "active"
-        );
-
-        signupTab.classList.remove(
-          "active"
-        );
-
-        return;
-
-      }
-
-
-      loginForm.style.display =
-        "none";
-
-      signupForm.style.display =
-        "none";
-
-      accountPanel.style.display =
-        "block";
-
-      loginTab.classList.remove(
-        "active"
-      );
-
-      signupTab.classList.remove(
-        "active"
-      );
-
-
-      accountInfo.innerHTML = `
-
-        <div>
-          <strong>Name</strong>
-          <span>${escapeHTML(user.name)}</span>
-        </div>
-
-        <div>
-          <strong>Email</strong>
-          <span>${escapeHTML(user.email)}</span>
-        </div>
-
-      `;
-
-    }
-
-
-    /* =========================
-       LOGOUT
-    ========================== */
-
-    if (logoutBtn) {
-
-      logoutBtn.addEventListener(
-        "click",
-        () => {
-
-          window.Kalakaar.logout();
-
-          authModal.classList.remove(
-            "show"
-          );
-
-          alert(
-            "You have been logged out."
-          );
-
-        }
-      );
-
-    }
-
-
-    /* =========================
-       SAFE HTML
-    ========================== */
-
-    function escapeHTML(value) {
-
-      return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-
-    }
-
-
-    /* =========================
-       SETTINGS
-    ========================== */
-
-    const settingsBtn =
-      document.getElementById(
-        "settingsBtn"
-      );
-
-    if (settingsBtn) {
-
-      settingsBtn.addEventListener(
-        "click",
-        () => {
-
-          authModal.classList.add(
-            "show"
-          );
-
-          showAccountState();
-
-        }
-      );
-
-    }
-
-  </script>
+<script src="script.js"></script>
 
 </body>
 </html>

@@ -52,12 +52,12 @@ router.post("/signup", async (req, res) => {
       });
     }
 
-    const passwordHash = await bcrypt.hash(password, 12);
+    const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = await User.create({
       name: name.trim(),
       email: normalizedEmail,
-      passwordHash
+      password: hashedPassword
     });
 
     const token = createToken(user);
@@ -76,22 +76,18 @@ router.post("/signup", async (req, res) => {
 
     console.error("SIGNUP ERROR:", error);
 
-    // Duplicate key error (e.g. unique email index conflict)
     if (error.code === 11000) {
       return res.status(409).json({
         message: "An account with this email already exists."
       });
     }
 
-    // Mongoose validation error (missing/invalid schema field)
     if (error.name === "ValidationError") {
       return res.status(400).json({
         message: "Validation failed: " + error.message
       });
     }
 
-    // TEMPORARY: show real error while debugging.
-    // Remove the "debug" line once everything works.
     res.status(500).json({
       message: "Unable to create account.",
       debug: error.message
@@ -120,7 +116,7 @@ router.post("/login", async (req, res) => {
 
     const normalizedEmail = email.trim().toLowerCase();
 
-    const user = await User.findOne({ email: normalizedEmail }).select("+passwordHash");
+    const user = await User.findOne({ email: normalizedEmail });
 
     if (!user) {
       return res.status(401).json({
@@ -128,7 +124,7 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    const validPassword = await bcrypt.compare(password, user.passwordHash);
+    const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
       return res.status(401).json({

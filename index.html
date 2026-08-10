@@ -1,668 +1,705 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kalakaar | All-in-One App</title>
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-  <meta
-    name="theme-color"
-    content="#120817"
-  >
+    body {
+      background: #08080d;
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-  <meta
-    name="description"
-    content="Kalakaar - All-in-One AI Hub"
-  >
+    body::before {
+      content: "";
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      background: #7c3aed;
+      filter: blur(180px);
+      opacity: 0.12;
+      top: -200px;
+      left: -150px;
+      z-index: -1;
+    }
 
-  <title>
-    Kalakaar | All-in-One AI App
-  </title>
+    body::after {
+      content: "";
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      background: #ec4899;
+      filter: blur(180px);
+      opacity: 0.08;
+      bottom: -150px;
+      right: -100px;
+      z-index: -1;
+    }
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+    .app {
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 22px;
+      padding-bottom: 100px;
+    }
+
+    /* HEADER */
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #7c3aed, #ec4899);
+      box-shadow: 0 0 25px rgba(124, 58, 237, 0.35);
+    }
+
+    .brand h1 {
+      font-size: 24px;
+    }
+
+    .brand p {
+      color: #888;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .profile {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #15151d;
+      cursor: pointer;
+    }
+
+    /* WELCOME */
+
+    .welcome {
+      margin-bottom: 22px;
+    }
+
+    .welcome small {
+      color: #999;
+    }
+
+    .welcome h2 {
+      font-size: 30px;
+      margin-top: 7px;
+    }
+
+    .welcome span {
+      background: linear-gradient(90deg, #a855f7, #ec4899);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    /* SEARCH */
+
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #111118;
+      border: 1px solid #252530;
+      border-radius: 15px;
+      padding: 14px 16px;
+      margin-bottom: 25px;
+    }
+
+    .search span {
+      color: #777;
+    }
+
+    .search input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: white;
+      font-size: 15px;
+    }
+
+    /* SECTION */
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .section-title h3 {
+      font-size: 18px;
+    }
+
+    .section-title span {
+      color: #999;
+      font-size: 12px;
+    }
+
+    /* MODULE GRID */
+
+    .modules {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      min-height: 170px;
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px solid #292934;
+      background: linear-gradient(
+        145deg,
+        rgba(25, 25, 35, 0.95),
+        rgba(12, 12, 18, 0.95)
+      );
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #7c3aed;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: #7c3aed;
+      filter: blur(70px);
+      opacity: 0.10;
+      right: -40px;
+      bottom: -40px;
+    }
+
+    .icon {
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      background: #1b1627;
+      font-size: 21px;
+      margin-bottom: 20px;
+    }
+
+    .card h4 {
+      font-size: 17px;
+      margin-bottom: 7px;
+    }
+
+    .card p {
+      color: #888;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .arrow {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      color: #777;
+    }
+
+    /* QUICK ACTIONS */
+
+    .quick {
+      margin-top: 30px;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .quick-btn {
+      padding: 16px 12px;
+      background: #111118;
+      border: 1px solid #252530;
+      border-radius: 15px;
+      text-align: center;
+      color: #ddd;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .quick-btn:hover {
+      border-color: #a855f7;
+      background: #17131f;
+    }
+
+    .quick-btn div {
+      font-size: 20px;
+      margin-bottom: 7px;
+    }
+
+    .quick-btn span {
+      font-size: 11px;
+      color: #999;
+    }
+
+    /* BOTTOM NAV */
+
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 15px;
+      width: calc(100% - 30px);
+      max-width: 600px;
+      background: rgba(17, 17, 24, 0.94);
+      backdrop-filter: blur(15px);
+      border: 1px solid #292934;
+      border-radius: 20px;
+      padding: 10px;
+      display: flex;
+      justify-content: space-around;
+      z-index: 100;
+    }
+
+    .nav-item {
+      color: #777;
+      text-align: center;
+      font-size: 11px;
+      cursor: pointer;
+      padding: 5px 15px;
+    }
+
+    .nav-item div {
+      font-size: 19px;
+      margin-bottom: 4px;
+    }
+
+    .nav-item.active {
+      color: #c084fc;
+    }
+
+    /* TOAST */
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      top: 25px;
+      transform: translate(-50%, -100px);
+      background: #191922;
+      border: 1px solid #343440;
+      padding: 13px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      opacity: 0;
+      transition: 0.35s;
+      z-index: 200;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 800px) {
+      .modules {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quick-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .app {
+        padding: 16px;
+        padding-bottom: 95px;
+      }
+
+      .modules {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: 150px;
+      }
+
+      .welcome h2 {
+        font-size: 25px;
+      }
+
+      .brand h1 {
+        font-size: 21px;
+      }
+
+      .logo {
+        width: 43px;
+        height: 43px;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
-  <div class="app-shell">
+  <div class="app">
 
-
-    <!-- =========================
-         TOP BAR
-    ========================== -->
-
-    <header class="topbar">
+    <!-- HEADER -->
+    <header class="header">
 
       <div class="brand">
-
-        <img
-          src="assets/Kalakaar.jpg"
-          alt="Kalakaar"
-          class="brand-logo"
-        >
+        <div class="logo">K</div>
 
         <div>
-
-          <h1>KALAKAAR</h1>
-
-          <p>
-            All-in-One AI Hub
-          </p>
-
+          <h1>Kalakaar</h1>
+          <p>Your all-in-one digital workspace</p>
         </div>
-
       </div>
 
-
-      <button
-        type="button"
-        class="icon-btn"
-        id="themeBtn"
-        aria-label="Toggle theme"
-      >
-        ◐
-      </button>
+      <div class="profile" onclick="showToast('Profile coming soon')">
+        👤
+      </div>
 
     </header>
 
 
+    <!-- WELCOME -->
 
-    <!-- =========================
-         MAIN
-    ========================== -->
+    <section class="welcome">
+      <small>Welcome back</small>
+      <h2>Build something <span>great.</span></h2>
+    </section>
 
-    <main>
 
+    <!-- SEARCH -->
 
-      <!-- =========================
-           HERO
-      ========================== -->
+    <div class="search">
+      <span>⌕</span>
 
-      <section class="hero">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search tools, services, jobs..."
+        onkeyup="searchModules()"
+      />
+    </div>
 
-        <div class="hero-glow"></div>
 
-        <div class="hero-content">
+    <!-- MODULES -->
 
-          <span class="badge">
-            KALAKAAR V2
-          </span>
+    <div class="section-title">
+      <h3>Kalakaar Workspace</h3>
+      <span>6 Modules</span>
+    </div>
 
 
-          <h2>
-            Sab kuch,
-            <span>ek app</span>
-            mein.
-          </h2>
+    <section class="modules" id="modules">
 
+      <div class="card" data-name="business ai"
+           onclick="openModule('Business AI')">
 
-          <p>
-            Business, Banking, Jobs, Study,
-            Services aur WhatsApp tools
-            ek hi jagah.
-          </p>
+        <div class="icon">🤖</div>
 
+        <h4>Business AI</h4>
 
-          <div class="search-box">
+        <p>
+          AI tools for business planning,
+          reports and customer management.
+        </p>
 
-            <span>
-              ⌕
-            </span>
-
-            <input
-              id="searchInput"
-              type="search"
-              placeholder="Search a feature..."
-              autocomplete="off"
-            >
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =========================
-           QUICK TOOLS
-      ========================== -->
-
-      <section class="quick">
-
-        <div class="section-title">
-
-          <h3>
-            Quick Tools
-          </h3>
-
-          <span>
-            V2
-          </span>
-
-        </div>
-
-
-        <div class="quick-grid">
-
-
-          <button
-            type="button"
-            class="quick-card"
-            data-open="emi"
-          >
-
-            <strong>
-              ₹
-            </strong>
-
-            <span>
-              EMI Calculator
-            </span>
-
-          </button>
-
-
-
-          <button
-            type="button"
-            class="quick-card"
-            data-open="ledger"
-          >
-
-            <strong>
-              ▤
-            </strong>
-
-            <span>
-              Customer Ledger
-            </span>
-
-          </button>
-
-
-
-          <button
-            type="button"
-            class="quick-card"
-            data-open="resume"
-          >
-
-            <strong>
-              CV
-            </strong>
-
-            <span>
-              Resume Builder
-            </span>
-
-          </button>
-
-
-
-          <button
-            type="button"
-            class="quick-card"
-            data-open="notes"
-          >
-
-            <strong>
-              ✦
-            </strong>
-
-            <span>
-              AI Notes
-            </span>
-
-          </button>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =========================
-           KALAKAAR MODULES
-      ========================== -->
-
-      <section class="modules">
-
-
-        <div class="section-title">
-
-          <h3>
-            Kalakaar Modules
-          </h3>
-
-          <span id="moduleCount">
-            6 Modules
-          </span>
-
-        </div>
-
-
-
-        <div
-          class="module-grid"
-          id="moduleGrid"
-        >
-
-
-          <!-- BUSINESS -->
-
-          <button
-            type="button"
-            class="module-card"
-            data-name="business ai billing stock customer ledger payment whatsapp reports"
-            data-open="business"
-          >
-
-            <div class="module-icon">
-              ▣
-            </div>
-
-            <div>
-
-              <h4>
-                Business AI
-              </h4>
-
-              <p>
-                Billing, stock, ledger & reports
-              </p>
-
-            </div>
-
-            <b>
-              ›
-            </b>
-
-          </button>
-
-
-
-          <!-- BANKING -->
-
-          <button
-            type="button"
-            class="module-card"
-            data-name="banking finance emi collection dpd npa branch excel"
-            data-open="banking"
-          >
-
-            <div class="module-icon">
-              ₹
-            </div>
-
-            <div>
-
-              <h4>
-                Banking & Finance
-              </h4>
-
-              <p>
-                EMI, collection, DPD/NPA & tools
-              </p>
-
-            </div>
-
-            <b>
-              ›
-            </b>
-
-          </button>
-
-
-
-          <!-- JOBS -->
-
-          <button
-            type="button"
-            class="module-card"
-            data-name="resume jobs cv interview application career ai"
-            data-open="jobs"
-          >
-
-            <div class="module-icon">
-              CV
-            </div>
-
-            <div>
-
-              <h4>
-                AI Resume & Jobs
-              </h4>
-
-              <p>
-                Resume, interview & job tracker
-              </p>
-
-            </div>
-
-            <b>
-              ›
-            </b>
-
-          </button>
-
-
-
-          <!-- SERVICES -->
-
-          <button
-            type="button"
-            class="module-card"
-            data-name="local service electrician plumber mechanic ac repair booking"
-            data-open="services"
-          >
-
-            <div class="module-icon">
-              ⌂
-            </div>
-
-            <div>
-
-              <h4>
-                Local Services
-              </h4>
-
-              <p>
-                Book trusted local professionals
-              </p>
-
-            </div>
-
-            <b>
-              ›
-            </b>
-
-          </button>
-
-
-
-          <!-- STUDY -->
-
-          <button
-            type="button"
-            class="module-card"
-            data-name="study ncert notes quiz exam tutor hindi"
-            data-open="study"
-          >
-
-            <div class="module-icon">
-              ✦
-            </div>
-
-            <div>
-
-              <h4>
-                AI Study
-              </h4>
-
-              <p>
-                Notes, quiz, NCERT & AI tutor
-              </p>
-
-            </div>
-
-            <b>
-              ›
-            </b>
-
-          </button>
-
-
-
-          <!-- WHATSAPP CRM -->
-
-          <button
-            type="button"
-            class="module-card"
-            data-name="whatsapp crm customer followup payment reminder messages"
-            data-open="crm"
-          >
-
-            <div class="module-icon">
-              ◉
-            </div>
-
-            <div>
-
-              <h4>
-                WhatsApp CRM
-              </h4>
-
-              <p>
-                Customers, follow-ups & reminders
-              </p>
-
-            </div>
-
-            <b>
-              ›
-            </b>
-
-          </button>
-
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =========================
-           AI ASSISTANT
-      ========================== -->
-
-      <section class="assistant">
-
-        <div class="assistant-icon">
-          ✦
-        </div>
-
-
-        <div>
-
-          <span>
-            AI ASSISTANT
-          </span>
-
-          <h3>
-            Kalakaar se poochho
-          </h3>
-
-          <p>
-            “Mera business report banao”
-            ya “Interview ke liye prepare karo”.
-          </p>
-
-        </div>
-
-
-        <button
-          type="button"
-          id="askBtn"
-        >
-          Open
-        </button>
-
-      </section>
-
-
-    </main>
-
-
-
-    <!-- =========================
-         BOTTOM NAVIGATION
-    ========================== -->
-
-    <nav class="bottom-nav">
-
-
-      <button
-        type="button"
-        class="active"
-      >
-
-        ⌂
-
-        <span>
-          Home
-        </span>
-
-      </button>
-
-
-
-      <button
-        type="button"
-      >
-
-        ▣
-
-        <span>
-          Tools
-        </span>
-
-      </button>
-
-
-
-      <button
-        type="button"
-      >
-
-        ✦
-
-        <span>
-          AI
-        </span>
-
-      </button>
-
-
-
-      <button
-        type="button"
-      >
-
-        ⚙
-
-        <span>
-          Settings
-        </span>
-
-      </button>
-
-
-    </nav>
-
-
-  </div>
-
-
-
-  <!-- =========================
-       MODAL
-  ========================== -->
-
-  <div
-    class="modal"
-    id="modal"
-    aria-hidden="true"
-  >
-
-    <div
-      class="modal-card"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modalTitle"
-    >
-
-
-      <!-- CLOSE -->
-
-      <button
-        type="button"
-        class="close"
-        id="closeModal"
-        aria-label="Close"
-      >
-        ×
-      </button>
-
-
-
-      <!-- BADGE -->
-
-      <span class="badge">
-        KALAKAAR
-      </span>
-
-
-
-      <!-- TITLE -->
-
-      <h2 id="modalTitle">
-        Welcome
-      </h2>
-
-
-
-      <!-- DESCRIPTION -->
-
-      <p id="modalText">
-        Module selected.
-      </p>
-
-
-
-      <!-- MESSAGE -->
-
-      <div class="coming">
-
-        Kalakaar module ready hai.
-        Is module ke features yahin se
-        use kar sakte ho.
+        <div class="arrow">→</div>
 
       </div>
 
 
+      <div class="card" data-name="banking finance"
+           onclick="openModule('Banking & Finance')">
 
-      <!-- ACTION -->
+        <div class="icon">₹</div>
 
-      <button
-        type="button"
-        class="primary"
-        id="modalAction"
-      >
-        Continue
-      </button>
+        <h4>Banking & Finance</h4>
+
+        <p>
+          EMI calculator, ledger,
+          expenses and finance tools.
+        </p>
+
+        <div class="arrow">→</div>
+
+      </div>
 
 
-    </div>
+      <div class="card" data-name="resume jobs ai"
+           onclick="openModule('AI Resume & Jobs')">
+
+        <div class="icon">📄</div>
+
+        <h4>AI Resume & Jobs</h4>
+
+        <p>
+          Create resumes, prepare interviews
+          and explore career opportunities.
+        </p>
+
+        <div class="arrow">→</div>
+
+      </div>
+
+
+      <div class="card" data-name="local services booking"
+           onclick="openModule('Local Services')">
+
+        <div class="icon">📍</div>
+
+        <h4>Local Services</h4>
+
+        <p>
+          Find local professionals and
+          request services easily.
+        </p>
+
+        <div class="arrow">→</div>
+
+      </div>
+
+
+      <div class="card" data-name="ai study education"
+           onclick="openModule('AI Study')">
+
+        <div class="icon">🧠</div>
+
+        <h4>AI Study</h4>
+
+        <p>
+          Notes, summaries, questions
+          and AI-powered study tools.
+        </p>
+
+        <div class="arrow">→</div>
+
+      </div>
+
+
+      <div class="card" data-name="whatsapp crm customer"
+           onclick="openModule('WhatsApp CRM')">
+
+        <div class="icon">💬</div>
+
+        <h4>WhatsApp CRM</h4>
+
+        <p>
+          Manage customers, follow-ups
+          and business conversations.
+        </p>
+
+        <div class="arrow">→</div>
+
+      </div>
+
+    </section>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <section class="quick">
+
+      <div class="section-title">
+        <h3>Quick Actions</h3>
+        <span>Fast tools</span>
+      </div>
+
+
+      <div class="quick-grid">
+
+        <div class="quick-btn"
+             onclick="openModule('EMI Calculator')">
+
+          <div>🧮</div>
+          <span>EMI Calculator</span>
+
+        </div>
+
+
+        <div class="quick-btn"
+             onclick="openModule('Resume Builder')">
+
+          <div>📄</div>
+          <span>Resume Builder</span>
+
+        </div>
+
+
+        <div class="quick-btn"
+             onclick="openModule('AI Notes')">
+
+          <div>📝</div>
+          <span>AI Notes</span>
+
+        </div>
+
+
+        <div class="quick-btn"
+             onclick="openModule('Customer Ledger')">
+
+          <div>📊</div>
+          <span>Customer Ledger</span>
+
+        </div>
+
+      </div>
+
+    </section>
 
   </div>
 
 
+  <!-- BOTTOM NAV -->
 
-  <!-- =========================
-       JAVASCRIPT
-  ========================== -->
+  <nav class="bottom-nav">
 
-  <script src="script.js"></script>
+    <div class="nav-item active"
+         onclick="setActive(this)">
+      <div>⌂</div>
+      Home
+    </div>
+
+    <div class="nav-item"
+         onclick="setActive(this)">
+      <div>◉</div>
+      Tools
+    </div>
+
+    <div class="nav-item"
+         onclick="setActive(this)">
+      <div>＋</div>
+      Create
+    </div>
+
+    <div class="nav-item"
+         onclick="setActive(this)">
+      <div>♡</div>
+      Saved
+    </div>
+
+    <div class="nav-item"
+         onclick="setActive(this)">
+      <div>☰</div>
+      More
+    </div>
+
+  </nav>
+
+
+  <!-- TOAST -->
+
+  <div class="toast" id="toast"></div>
+
+
+  <script>
+
+    function showToast(message) {
+
+      const toast =
+        document.getElementById("toast");
+
+      toast.textContent = message;
+
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2200);
+    }
+
+
+    function openModule(module) {
+
+      showToast(module + " module coming soon");
+
+    }
+
+
+    function setActive(element) {
+
+      document
+        .querySelectorAll(".nav-item")
+        .forEach(item => {
+          item.classList.remove("active");
+        });
+
+      element.classList.add("active");
+
+    }
+
+
+    function searchModules() {
+
+      const query =
+        document
+          .getElementById("searchInput")
+          .value
+          .toLowerCase();
+
+      const cards =
+        document.querySelectorAll(".card");
+
+      cards.forEach(card => {
+
+        const name =
+          card
+            .getAttribute("data-name")
+            .toLowerCase();
+
+        if (name.includes(query)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+
+      });
+
+    }
+
+  </script>
 
 </body>
-
 </html>
